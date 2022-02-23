@@ -25,13 +25,14 @@
                         <input type="text" name="km" class="form-control" placeholder="Kilómetros *" value=""/>
                     </div>
                     <div class="form-group">
+                        <?php
+                        $clientes = DB::table('clients')->get();
+                        ?>
                         <select class="form-select form-control border-white" name="client_id">
-                            <option class="text-dark" selected>Selecciona un cliente
-                                <i class="bi bi-arrow-down-circle-fill"></i>
-                            </option>
-                            <option value="1">Francisco Fernández</option>
-                            <option value="2">David Parejo</option>
-                            <option value="3">Sabrina Ojea</option>
+                            <option class="text-dark" selected>Selecciona un cliente</option>
+                            @foreach($clientes as $cliente)
+                                <option value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}} -- {{$cliente->dni}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -49,11 +50,11 @@
 
             <div class="row mb-1">
                 <div class="col-md-4">
-                    <img class="imgCoche"
-                         src="https://static7.depositphotos.com/1062035/744/i/950/depositphotos_7447682-stock-photo-car-driving-fast.jpg">
+                    <img class="imgCoche" id="imgCoche"
+                         src="https://thumbs.dreamstime.com/b/coche-realista-en-la-oscuridad-front-view-97098400.jpg">
                 </div>
                 <div class="form-group col-md-8 d-flex justify-content-center align-self-center">
-                    <input type="file" name="fotoCoche" class="form-control" value="Añadir coche"/>
+                    <input type="file" name="fotoCoche" class="form-control" value="Añadir coche" id="fotoCocheInput"/>
                 </div>
             </div>
 

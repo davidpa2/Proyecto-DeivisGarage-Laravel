@@ -6,7 +6,6 @@
                 <?php
                 //$coches = DB::table('cars')->get()->where('id',Auth::id());
                 $coches = DB::table('cars')->get();
-                echo Auth::id();
                 ?>
                 @foreach($coches as $coche)
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"

@@ -37,7 +37,7 @@ class CarController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,12 +55,11 @@ class CarController extends Controller
         try {
             $newCar = new Car();
 
-            $newCar->matricula = $request->matricula;
             $newCar->marca = $request->marca;
             $newCar->modelo = $request->modelo;
             $newCar->km = $request->km;
             $newCar->averias = $request->averias;
-            $newCar->descripcionAveria = $request->descripcionAveria;
+            $newCar->descripcionAveria = $request->descAveria;
             $newCar->arreglado = 0;
             $newCar->user_id = Auth::id();
             $newCar->client_id = $request->client_id;
@@ -68,11 +67,11 @@ class CarController extends Controller
             $newCar->foto = $nombrefoto;
             $newCar->save();
 
-            $request->file('foto')->storeAs('public/img_cars', $nombrefoto);
+            $request->file('fotoCoche')->storeAs('public/img_cars', $nombrefoto);
 
-            //return redirect()->route('car.index',$newCar->id);
             return redirect()->route('taller');
         } catch (QueryException $exception) {
+            //return $exception->errorInfo;
             return redirect()->route('registrarCoche')->with('error', 1);
         }
     }
@@ -80,7 +79,7 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -91,7 +90,7 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -102,8 +101,8 @@ class CarController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -114,7 +113,7 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
