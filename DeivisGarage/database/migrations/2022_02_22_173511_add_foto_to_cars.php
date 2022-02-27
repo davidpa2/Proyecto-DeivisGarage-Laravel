@@ -14,7 +14,7 @@ class AddFotoToCars extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('foto')->after('arreglado');
+            $table->string('foto')->after('estado');
         });
     }
 

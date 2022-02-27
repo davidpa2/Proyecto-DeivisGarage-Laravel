@@ -60,7 +60,7 @@ class CarController extends Controller
             $newCar->km = $request->km;
             $newCar->averias = $request->averias;
             $newCar->descripcionAveria = $request->descAveria;
-            $newCar->arreglado = 0;
+            $newCar->estado = "en cola";
             $newCar->user_id = Auth::id();
             $newCar->client_id = $request->client_id;
             $nombrefoto = time() . "_" . $request->file('fotoCoche')->getClientOriginalName();
@@ -84,7 +84,9 @@ class CarController extends Controller
      */
     public function show($id)
     {
-        //
+        $coche = Car::findOrFail($id);
+        //$coche = $user->cars()->get()->where('id',$id);
+        return view('factura')->with('coche', $coche);
     }
 
     /**

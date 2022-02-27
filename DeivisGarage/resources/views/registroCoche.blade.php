@@ -31,7 +31,11 @@
                         <select class="form-select form-control border-white" name="client_id">
                             <option class="text-dark" selected>Selecciona un cliente</option>
                             @foreach($clientes as $cliente)
-                                <option value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}} -- {{$cliente->dni}}</option>
+                                <option
+                                    @if(session('cliente') == $cliente->id)
+                                        selected
+                                    @endif
+                                    value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}} -- {{$cliente->dni}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -70,28 +74,35 @@
             </div>
         </form>
 
-        <form method="post" class="bg-transparent d-none" id="formNewClient">
+        <form enctype="multipart/form-data" method="POST" action="{{route('client.store')}}" id="formNewClient"
+              class="bg-transparent
+              <?php if (session('errorCliente')) {
+                  echo "d-block";
+              } else {
+                  echo "d-none";
+              }?>">
+            @csrf
             <div class="row mb-1">
                 <div class="form-group col-md-6">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre *" value=""/>
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombre *" :value="old('nombre')"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *" value=""/>
+                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *" :value="old('apellidos')"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" name="dni" class="form-control" placeholder="DNI *" value=""/>
+                    <input type="text" name="dni" class="form-control" placeholder="DNI *" :value="old('dni')"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" name="tlf" class="form-control" placeholder="Teléfono *" value=""/>
+                    <input type="text" name="tlf" class="form-control" placeholder="Teléfono *" :value="old('tlf')"/>
                 </div>
                 <div class="form-group col">
-                    <input type="text" name="email" class="form-control" placeholder="Email *" value=""/>
+                    <input type="text" name="email" class="form-control" placeholder="Email *" :value="old('email')"/>
                 </div>
             </div>
 
             <div class="row mt-4">
                 <div class="form-group col d-flex justify-content-center">
-                    <input type="button" name="nuevoCliente" class="btn btn-warning rounded-pill"
+                    <input type="submit" name="nuevoCliente" class="btn btn-warning rounded-pill"
                            value="Completar registro"/>
                 </div>
             </div>

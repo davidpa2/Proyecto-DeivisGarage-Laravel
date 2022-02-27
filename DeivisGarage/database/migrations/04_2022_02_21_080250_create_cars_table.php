@@ -20,7 +20,8 @@ return new class extends Migration
             $table->integer('km');
             $table->integer('averias');
             $table->string('descripcionAveria');
-            $table->boolean('arreglado',true);
+            //$table->boolean('arreglado',true);
+            $table->string('estado');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

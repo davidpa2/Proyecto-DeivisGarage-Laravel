@@ -71,3 +71,25 @@ hr {
 textarea {
     resize: none;
 }
+
+.pancarta {
+    height: 80vh;
+    border-radius: 20px;
+}
+
+.logo {
+    width: 3rem;
+    color: white;
+}
+
+input {
+    width: 20rem;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+}
+
+.bgTarjeta {
+    background-color: #d9d9d9;
+    width:400px;
+}

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -38,7 +37,29 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'nombre' => 'required',
+            'apellidos' => 'required',
+            'email' => 'required',
+            'dni' => 'required',
+            'tlf' => 'required',
+        ]);
+
+        try {
+            $newClient = new Client();
+
+            $newClient->nombre = $request->nombre;
+            $newClient->apellidos = $request->apellidos;
+            $newClient->email = $request->email;
+            $newClient->dni = $request->dni;
+            $newClient->tlf = $request->tlf;
+            $newClient->save();
+
+            return redirect()->route('registrarCoche')->with('cliente',$newClient->id);
+        } catch (QueryException $exception) {
+            //return $exception->errorInfo;
+            return redirect()->route('registrarCoche')->with('errorCliente', 1);
+        }
     }
 
     /**

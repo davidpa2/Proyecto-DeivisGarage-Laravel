@@ -13,10 +13,10 @@
                 <a class="nav-link" href="route('taller')" :active="request()->routeIs('dashboard')">Reparaciones</a>
             </x-nav-link>
             <x-nav-link class="nav-item">
-                <a class="nav-link" href="route('taller')" :active="request()->routeIs('dashboard')">Usuarios</a>
+                <a class="nav-link" href="{{route('mecanicos')}}" :active="request()->routeIs('dashboard')">Mecánicos</a>
             </x-nav-link>
             <x-nav-link class="nav-item">
-                <a class="nav-link" href="route('taller')" :active="request()->routeIs('dashboard')">Quemar taller</a>
+                <a class="nav-link" href="{{route('register')}}" :active="request()->routeIs('dashboard')">Contratar mecánico</a>
             </x-nav-link>
         </ul>
 
