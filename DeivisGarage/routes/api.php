@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarApiController;
+use App\Http\Controllers\CarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('apicar', CarApiController::class);
+
+Route::put('/apicar/{id}/{coste}', [CarApiController::class,'updateCoste'])->name('apicar.updateCoste');

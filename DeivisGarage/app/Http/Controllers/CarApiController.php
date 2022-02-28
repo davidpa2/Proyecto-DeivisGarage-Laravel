@@ -85,6 +85,23 @@ class CarApiController extends Controller
     }
 
     /**
+     * Actualizar el coste de la reparación de un coche
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateCoste($id, $coste)
+    {
+        $coche = Car::findOrFail($id);
+
+        $coche->costeReparacion = $coste;
+
+        $coche->save();
+        return response()->json($coche);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param int $id

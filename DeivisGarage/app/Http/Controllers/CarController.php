@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -85,8 +86,9 @@ class CarController extends Controller
     public function show($id)
     {
         $coche = Car::findOrFail($id);
-        //$coche = $user->cars()->get()->where('id',$id);
-        return view('factura')->with('coche', $coche);
+        $cliente = Client::findOrFail($coche->client_id);
+        //$cocheCliente = $coche->clients()->get()->where('id',$coche->id);
+        return view('factura')->with('coche', $coche)->with('cliente', $cliente);
     }
 
     /**
@@ -120,6 +122,10 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $coche = Car::findOrFail($id);
+
+        $coche->delete();
+
+        return redirect()->route('car.index');
     }
 }

@@ -16,7 +16,7 @@
                 <a class="nav-link" href="{{route('mecanicos')}}" :active="request()->routeIs('dashboard')">Mecánicos</a>
             </x-nav-link>
             <x-nav-link class="nav-item">
-                <a class="nav-link" href="{{route('register')}}" :active="request()->routeIs('dashboard')">Contratar mecánico</a>
+                <a class="nav-link" href="{{route('registrarMecanico')}}" :active="request()->routeIs('dashboard')">Contratar mecánico</a>
             </x-nav-link>
         </ul>
 

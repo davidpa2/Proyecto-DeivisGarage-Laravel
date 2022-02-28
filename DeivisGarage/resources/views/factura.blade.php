@@ -12,22 +12,36 @@
         </div>
     </div>
 
-    <?php
-    $cliente = DB::table('clients')->get()->where('id', $coche->client_id);
-    ?>
+    <div id="plantillaImpresion2" class="d-none">
+        <div class="row d-flex justify-content-center">
+            <div class="col-8">
+                <hr>
+                <p class="text-white text-center">Firma del mecánico:</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="plantillaImpresion3" class="d-none">
+        <div class="row d-flex justify-content-center">
+            <div class="col-8">
+                <p class="text-white text-center" id="pCoste"></p>
+            </div>
+        </div>
+    </div>
+
 
     <div class="container mt-4" id="impresion">
         <div class="row d-flex justify-content-center">
             <h1 class="white-title text-center">Datos del cliente:</h1>
             <div class="col-4 text-white">
-                <p>Nombre: David</p>
-                <p>DNI: 27435365G</p>
-                <p>Gmail: parejoteelgrandavid@gmail.com</p>
+                <p>Nombre: {{$cliente->nombre}}</p>
+                <p>DNI: {{$cliente->dni}}</p>
+                <p>Gmail: {{$cliente->email}}</p>
             </div>
-            <div class="col-2 text-white">
-                <p>Apellidos: Parejo Aliaga</p>
-                <p>Teléfono: 684 434 831</p>
-                <p>Mecánico: Manuel Padilla</p>
+            <div class="col-3 text-white">
+                <p>Apellidos: {{$cliente->apellidos}}</p>
+                <p>Teléfono: {{$cliente->tlf}}</p>
+                <p>Mecánico: {{Auth::user()->nombre}} {{Auth::user()->apellidos}}</p>
             </div>
         </div>
 
@@ -35,37 +49,56 @@
             <h1 class="white-title text-center">Datos del vehículo</h1>
             <div class="col-4 text-white">
                 <p>Marca: {{$coche->marca}}</p>
-                <p>Kilómetros: 14749 km</p>
+                <p>Kilómetros: {{$coche->km}} km</p>
 
             </div>
-            <div class="col-2 text-white">
-                <p>Modelo: Punto</p>
-                <p>Averías: 3</p>
+            <div class="col-3 text-white">
+                <p>Modelo: {{$coche->modelo}}</p>
+                <p>Averías: {{$coche->averias}}</p>
             </div>
         </div>
         <div class="row d-flex justify-content-center">
-            <div class="col-6 text-white">Descripción de las averías:<br>
+            <div class="col-7 text-white">Descripción de las averías:<br>
                 <ul>
                     <li>Pérdida de agua por el fuelle que conecta el motor con el radiador</li>
                     <li>Cambio de aceite y filtro del aire</li>
                     <li>Error en los pilotos traseros</li>
                 </ul>
-                <hr>
+
             </div>
         </div>
     </div>
+
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-1">
+            <label for="costeAveria" class="text-white">Coste de reparación:</label>
+        </div>
+        <div class="col-2">
+            <input type="number" name="costeAveria" id="costeAveria" class="form-control text-center"
+                   placeholder="Coste (€)"
+                   @if($coche->costeReparacion != null)
+                   value="{{$coche->costeReparacion}}" disabled="true"
+                   style="background: transparent"
+                    @endif
+            />
+        </div>
+    </div>
+
     <div class="container">
-        <div class="row mb-4 d-flex justify-content-center">
+        <div class="row my-4 d-flex justify-content-center">
             <div class="col-3 d-flex justify-content-center">
-                <button (click)="imprimir()" name="nuevoCliente" class="btn btn-warning rounded-pill"
+                <button disabled="true" onclick="imprimir(costeAveria.value)" name="imprimir" id="imprimir"
+                        class="btn btn-warning rounded-pill" type="button"
                         value="Imprimir factura">Imprimir factura
                 </button>
             </div>
             <div class="col-3 d-flex justify-content-center">
-                <button routerLink="/PerfilUsuario" name="nuevoCliente" class="btn btn-outline-warning rounded-pill"
-                        value="Imprimir factura">Volver
-                </button>
+                <a href="{{route('taller')}}" name="nuevoCliente" class="btn btn-outline-warning rounded-pill"
+                   value="Imprimir factura">Volver
+                </a>
             </div>
         </div>
     </div>
+
+    <p id="idCoche" class="d-none">{{$coche->id}}</p>
 </x-app-layout>

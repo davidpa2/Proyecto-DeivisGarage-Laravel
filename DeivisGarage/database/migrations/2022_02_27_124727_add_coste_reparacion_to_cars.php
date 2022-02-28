@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFotoToCars extends Migration
+class AddCosteReparacionToCars extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddFotoToCars extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('foto')->after('estado')->nullable();
+            $table->string('costeReparacion')->after('estado');
         });
     }
 

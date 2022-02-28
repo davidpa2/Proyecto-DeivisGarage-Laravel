@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,11 +28,16 @@ Route::get('/mecanicos', function () {
     return view('mecanicos');
 })->name('mecanicos');
 
+Route::get('/registrarMecanico', function () {
+    return view('registrarMecanico');
+})->name('registrarMecanico');
+
 Route::get('/factura/{id}', [CarController::class,'show'])->name('factura');
 
-//Rutas al controlador de recursos
+//Rutas al controlador de recursos de cada entidad
 Route::resource('car', CarController::class)->middleware(['auth','verified']);
 Route::resource('client', ClientController::class)->middleware(['auth','verified']);
+Route::resource('user', UserController::class)->middleware(['auth','verified']);
 
 /*Route::get('/taller', function () {
     return view('dashboard');
