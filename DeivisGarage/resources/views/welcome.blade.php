@@ -7,8 +7,24 @@
                 $coches = DB::table('cars')->get()->where('estado', 'en cola');
                 ?>
                 @foreach($coches as $coche)
+                    <?php
+                    $mecanico = DB::table('users')->where('id', $coche->user_id)->first();
+                    ?>
+                    <span class='d-inline-block' tabindex='0' data-bs-toggle='tooltip'
+                          data-bs-placement='top'
+                          title='-{{$coche->marca}} {{$coche->modelo}}       -Mecánico asignado: {{$mecanico->nombre}} {{$mecanico->apellidos}}
+                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)
+                                  -No puedes actualizar un coche que no has registrado tú
+                                  @endif
+                                  '>
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
-                         draggable="true" ondragstart="drag(event)" id="{{$coche->id}}"/>
+                         @if($mecanico->id == Auth::id() || Auth::user()->rol_id == 1)
+                         draggable="true"
+                         @else
+                         draggable="false"
+                         @endif
+                         ondragstart="drag(event)" id="{{$coche->id}}"/>
+                    </span>
             @endforeach
 
             <!--<img class="coche"
@@ -31,18 +47,28 @@
                 $coches = DB::table('cars')->get()->where('estado', 'reparacion');
                 ?>
                 @foreach($coches as $coche)
+                    <?php
+                    $mecanico = DB::table('users')->where('id', $coche->user_id)->first();
+                    ?>
+                    <span class='d-inline-block' tabindex='0' data-bs-toggle='tooltip'
+                          data-bs-placement='top'
+                          title='-{{$coche->marca}} {{$coche->modelo}}       -Mecánico asignado: {{$mecanico->nombre}} {{$mecanico->apellidos}}
+                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)
+                                  -No puedes actualizar un coche que no has registrado tú
+                                  @endif
+                                  '>
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
                          draggable="true" ondragstart="drag(event)" id="{{$coche->id}}"/>
+                    </span>
                 @endforeach
             </div>
-
         </div>
         <div class="row my-2 d-flex justify-content-around">
             <!--<div class="col-5 zona bg-transparent" ondrop="drop(event)" ondragover="allowDrop(event)">-->
             <div class="col-5 zona bg-transparent" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <h1 class="text-white text-center">Vehículos reparados</h1>
                 <?php
-                $coches = DB::table('cars')->get()->where('estado', 'completado')->where('costeReparacion',null);
+                $coches = DB::table('cars')->get()->where('estado', 'completado')->where('costeReparacion', null);
                 ?>
                 @foreach($coches as $coche)
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
@@ -51,8 +77,6 @@
                        class="btn btn-warning rounded-pill">Ver
                         factura</a>
                 @endforeach
-
             </div>
         </div>
-
 </x-app-layout>

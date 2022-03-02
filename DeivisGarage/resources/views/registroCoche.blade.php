@@ -1,22 +1,22 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-white">
-            {{ __('Mi coche') }}
-            @if(session('error')==1)
-                Error de base de datos
-            @endif
-        </h2>
-    </x-slot>
     <div class="container bg-transparent contact-form my-5">
         <div class="cabeceraImg">
             <img src="https://previews.123rf.com/images/djvstock/djvstock1709/djvstock170905146/85691310-destornillador-e-%C3%ADcono-de-la-llave-inglesa-.jpg"/>
         </div>
+        @if(isset($nuevoCliente))
+            <div class="row d-flex justify-content-center mt-5">
+                <div class="col-6 alert alert-warning text-center" role="alert">
+                    Se ha registrado el cliente: {{$nuevoCliente}}
+                </div>
+            </div>
+        @endif
         <form enctype="multipart/form-data" method="POST" action="{{route('car.store')}}" class="bg-transparent">
             @csrf
             <div class="row mb-1">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="marca" class="form-control" placeholder="Marca *" value="{{old('marca')}}"/>
+                        <input type="text" name="marca" class="form-control" placeholder="Marca *"
+                               value="{{old('marca')}}"/>
                         <p class="text-warning">
                             @error('marca')
                             {{$message}}
@@ -24,7 +24,8 @@
                         </p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="modelo" class="form-control" placeholder="Modelo *" value="{{old('modelo')}}"/>
+                        <input type="text" name="modelo" class="form-control" placeholder="Modelo *"
+                               value="{{old('modelo')}}"/>
                         <p class="text-warning">
                             @error('modelo')
                             {{$message}}
@@ -32,7 +33,8 @@
                         </p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="km" class="form-control" placeholder="Kilómetros *" value="{{old('km')}}"/>
+                        <input type="text" name="km" class="form-control" placeholder="Kilómetros *"
+                               value="{{old('km')}}"/>
                         <p class="text-warning">
                             @error('km')
                             {{$message}}
@@ -47,8 +49,10 @@
                             <option class="text-dark" value="0" selected>Selecciona un cliente</option>
                             @foreach($clientes as $cliente)
                                 <option
-                                        @if(session('cliente') == $cliente->id)
+                                        @if(isset($nuevoCliente))
+                                        @if($cliente->id == $cliente->id)
                                         selected
+                                        @endif
                                         @endif
                                         value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}}
                                     -- {{$cliente->dni}}</option>
@@ -64,7 +68,8 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="averias" class="form-control" placeholder="Nº averías *" value="{{old('averias')}}"/>
+                        <input type="text" name="averias" class="form-control" placeholder="Nº averías *"
+                               value="{{old('averias')}}"/>
                         <p class="text-warning">
                             @error('averias')
                             {{$message}}
@@ -89,7 +94,8 @@
                          src="https://thumbs.dreamstime.com/b/coche-realista-en-la-oscuridad-front-view-97098400.jpg">
                 </div>
                 <div class="form-group col-md-8 d-flex justify-content-center align-self-center">
-                    <input type="file" name="fotoCoche" class="form-control" value="{{old('fotoCoche')}}" id="fotoCocheInput"/>
+                    <input type="file" name="fotoCoche" class="form-control" value="{{old('fotoCoche')}}"
+                           id="fotoCocheInput"/>
                 </div>
                 <p class="text-center text-warning">
                     @error('fotoCoche')
@@ -122,19 +128,44 @@
                 <div class="form-group col-md-6">
                     <input type="text" name="nombre" class="form-control" placeholder="Nombre *"
                            :value="old('nombre')"/>
+                    <p class="text-center text-warning">
+                        @error('nombre')
+                        {{$message}}
+                        @enderror
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *"
                            :value="old('apellidos')"/>
+                    <p class="text-center text-warning">
+                        @error('apellidos')
+                        {{$message}}
+                        @enderror
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="dni" class="form-control" placeholder="DNI *" :value="old('dni')"/>
+                    <p class="text-center text-warning">
+                        @error('dni')
+                        {{$message}}
+                        @enderror
+                    </p>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="tlf" class="form-control" placeholder="Teléfono *" :value="old('tlf')"/>
+                    <p class="text-center text-warning">
+                        @error('tlf')
+                        {{$message}}
+                        @enderror
+                    </p>
                 </div>
                 <div class="form-group col">
                     <input type="text" name="email" class="form-control" placeholder="Email *" :value="old('email')"/>
+                    <p class="text-center text-warning">
+                        @error('email')
+                        {{$message}}
+                        @enderror
+                    </p>
                 </div>
             </div>
 

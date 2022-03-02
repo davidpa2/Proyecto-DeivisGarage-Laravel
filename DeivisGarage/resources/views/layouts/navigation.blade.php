@@ -6,20 +6,26 @@
                     <a class="nav-link active" href="{{route('taller')}}"
                        :active="request()->routeIs('taller')">DeivisGarage</a>
                 </x-nav-link>
-                <x-nav-link class="nav-item">
-                    <a class="nav-link" href="{{route('registrarCoche')}}" :active="request()->routeIs('dashboard')">Nuevo
-                        coche</a>
-                </x-nav-link>
-                <x-nav-link class="nav-item">
-                    <a class="nav-link" href="{{route('historial')}}" :active="request()->routeIs('dashboard')">Reparaciones</a>
-                </x-nav-link>
-                <x-nav-link class="nav-item">
-                    <a class="nav-link" href="{{route('mecanicos')}}" :active="request()->routeIs('dashboard')">Mecánicos</a>
-                </x-nav-link>
-                <x-nav-link class="nav-item">
-                    <a class="nav-link" href="{{route('registrarMecanico')}}" :active="request()->routeIs('dashboard')">Contratar
-                        mecánico</a>
-                </x-nav-link>
+                @auth
+                    <x-nav-link class="nav-item">
+                        <a class="nav-link" href="{{route('registrarCoche')}}"
+                           :active="request()->routeIs('dashboard')">Nuevo
+                            coche</a>
+                    </x-nav-link>
+                    <x-nav-link class="nav-item">
+                        <a class="nav-link" href="{{route('historial')}}" :active="request()->routeIs('dashboard')">Reparaciones</a>
+                    </x-nav-link>
+                    @if(Auth::user()->rol_id == 1)
+                        <x-nav-link class="nav-item">
+                            <a class="nav-link" href="{{route('mecanicos')}}" :active="request()->routeIs('dashboard')">Mecánicos</a>
+                        </x-nav-link>
+                        <x-nav-link class="nav-item">
+                            <a class="nav-link" href="{{route('registrarMecanico')}}"
+                               :active="request()->routeIs('dashboard')">Contratar
+                                mecánico</a>
+                        </x-nav-link>
+                    @endif
+                @endauth
             </ul>
         </div>
 
