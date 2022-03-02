@@ -72,8 +72,8 @@ class CarController extends Controller
 
             return redirect()->route('taller');
         } catch (QueryException $exception) {
-            //return $exception->errorInfo;
-            return redirect()->route('registrarCoche')->with('error', 1);
+            return $exception->errorInfo;
+            //return redirect()->route('registrarCoche')->with('error', 1);
         }
     }
 

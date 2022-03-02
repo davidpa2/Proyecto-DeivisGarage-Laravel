@@ -55,7 +55,7 @@ class ClientController extends Controller
             $newClient->tlf = $request->tlf;
             $newClient->save();
 
-            return redirect()->route('registrarCoche')->with('cliente',$newClient->id);
+            return redirect()->route('registrarCoche')->with('cliente',$newClient->id)->with('nuevoCliente',$newClient->nombre ." ". $newClient->apellidos);
         } catch (QueryException $exception) {
             //return $exception->errorInfo;
             return redirect()->route('registrarCoche')->with('errorCliente', 1);

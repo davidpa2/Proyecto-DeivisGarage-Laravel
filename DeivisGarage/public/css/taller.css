@@ -95,5 +95,5 @@ input {
 }
 
 input:disabled {
-    background-color: red !important;
+    background-color: transparent !important;
 }

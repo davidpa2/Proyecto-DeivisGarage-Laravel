@@ -59,12 +59,13 @@
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-7 text-white">Descripción de las averías:<br>
-                <ul>
+                <p>{{$coche->descripcionAveria}}</p>
+                <!--<ul>
                     <li>Pérdida de agua por el fuelle que conecta el motor con el radiador</li>
                     <li>Cambio de aceite y filtro del aire</li>
                     <li>Error en los pilotos traseros</li>
-                </ul>
-
+                </ul>-->
+                <hr>
             </div>
         </div>
     </div>
@@ -82,6 +83,7 @@
                     @endif
             />
         </div>
+
     </div>
 
     <div class="container">

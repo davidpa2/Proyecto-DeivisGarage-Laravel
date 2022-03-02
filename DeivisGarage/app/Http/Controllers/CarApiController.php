@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\Client;
 use Illuminate\Http\Request;
 
 class CarApiController extends Controller

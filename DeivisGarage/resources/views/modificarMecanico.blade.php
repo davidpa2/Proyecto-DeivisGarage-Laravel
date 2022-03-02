@@ -1,12 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-white">
-            {{ __('Mi coche') }}
-            @if(session('error')==1)
-                Error de base de datos
-            @endif
-        </h2>
-    </x-slot>
     <div class="container-fluid">
         <div class="row d-flex justify-content-center align-items-center my-5">
             <div class="col-3 d-flex justify-content-end">
@@ -21,13 +13,17 @@
                         <img src="{{asset('/storage/images/herramientas.png')}}" alt="logo" class="logo">
                     </div>
                 </div>
-                <h1 class="text-white">Contratar un mecánico</h1>
-                <form enctype="multipart/form-data" method="POST" action="{{route('user.store')}}" class="bg-transparent">
+                <h1 class="text-white">Modificar un mecánico</h1>
+
+                <form enctype="multipart/form-data" method="POST" action="{{route('user.update',$mecanico)}}"
+                      class="bg-transparent">
                     @csrf
+                    @method('PUT')
                     <div class="row mb-1">
                         <div class="col">
                             <div class="form-group">
-                                <input type="text" name="nombre" class="form-control" placeholder="Nombre *" value="{{old('nombre')}}"/>
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre *"
+                                       value="{{$mecanico->nombre}}"/>
                                 <p class="text-warning">
                                     @error('nombre')
                                     {{$message}}
@@ -40,7 +36,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *"
-                                       value="{{old('apellidos')}}"/>
+                                       value="{{$mecanico->apellidos}}"/>
                                 <p class="text-warning">
                                     @error('apellidos')
                                     {{$message}}
@@ -52,7 +48,8 @@
                     <div class="row mb-1">
                         <div class="col">
                             <div class="form-group">
-                                <input type="text" name="dni" class="form-control" placeholder="DNI *" value="{{old('dni')}}"/>
+                                <input type="text" name="dni" class="form-control" placeholder="DNI *"
+                                       value="{{$mecanico->dni}}"/>
                                 <p class="text-warning">
                                     @error('dni')
                                     {{$message}}
@@ -64,7 +61,8 @@
                     <div class="row mb-1">
                         <div class="col">
                             <div class="form-group">
-                                <input type="text" name="tlf" class="form-control" placeholder="Teléfono *" value="{{old('tlf')}}"/>
+                                <input type="text" name="tlf" class="form-control" placeholder="Teléfono *"
+                                       value="{{$mecanico->tlf}}"/>
                                 <p class="text-warning">
                                     @error('tlf')
                                     {{$message}}
@@ -76,7 +74,8 @@
                     <div class="row mb-1">
                         <div class="col">
                             <div class="form-group">
-                                <input type="text" name="email" class="form-control" placeholder="Email *" value="{{old('email')}}"/>
+                                <input type="text" name="email" class="form-control" placeholder="Email *"
+                                       value="{{$mecanico->email}}"/>
                                 <p class="text-warning">
                                     @error('email')
                                     {{$message}}
@@ -86,24 +85,10 @@
                         </div>
                     </div>
 
-                    <div class="row mb-1">
-                        <div class="col">
-                            <div class="form-group">
-                                <input type="password" name="pass" class="form-control" placeholder="Contraseña *"
-                                       value="" />
-                                <p class="text-warning">
-                                    @error('pass')
-                                    {{$message}}
-                                    @enderror
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row mt-4">
                         <div class="form-group col d-flex justify-content-center">
-                            <input type="submit" name="iniciar" class="btn btn-warning rounded-pill"
-                                   value="Registrar mecánico" id="registrar" />
+                            <input type="submit" name="modificar" class="btn btn-warning rounded-pill"
+                                   value="Modificar mecánico" id="modificar"/>
                         </div>
                     </div>
                 </form>

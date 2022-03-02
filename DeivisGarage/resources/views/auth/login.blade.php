@@ -1,9 +1,8 @@
 <x-guest-layout>
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')"/>
+    <!--<x-auth-session-status class="mb-4" :status="session('status')"/>
 
-    <!-- Validation Errors -->
-    <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+    <x-auth-validation-errors class="mb-4" :errors="$errors"/>-->
 
     <div id="login">
         <div class="container-fluid">
@@ -26,13 +25,18 @@
                         </div>
                     </div>
                     <h1 class="text-white">Iniciar sesión</h1>
-                    <form class="bg-transparent" action="{{ route('login') }}" method="post">
+                    <form class="bg-transparent form" action="{{ route('login') }}" method="post">
                         @csrf
                         <div class="row mb-1">
                             <div class="col">
                                 <div class="form-group">
                                     <input type="text" name="email" class="form-control" placeholder="Email *"
-                                           value=""/>
+                                           value="{{old('email')}}"/>
+                                    <p class="text-warning">
+                                        @error('email')
+                                        {{$message}}
+                                        @enderror
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -40,17 +44,24 @@
                         <div class="row mb-1">
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="password" name="pass" class="form-control" placeholder="Contraseña *"
-                                           value=""/>
+                                    <input type="password" name="password" class="form-control"
+                                           placeholder="Contraseña *"/>
+                                    <p class="text-warning">
+                                        @error('password')
+                                        {{$message}}
+                                        @enderror
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-1">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="remember-me" class="text-warning"><span>Remember me</span> <span><input
-                                                    id="remember-me" name="remember-me"
-                                                    type="checkbox"></span></label><br>
+                                    <label for="remember-me" class="text-warning">
+                                        Recuérdame
+                                    </label>
+                                    <input id="remember-me" name="remember-me"
+                                           type="checkbox"><br>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +79,8 @@
 
 
                         <div class="row mt-4">
-                            <div class="form-group col-md-6 d-flex justify-content-end">
-                                <input type="submit" name="iniciar" class="btn btn-warning rounded-pill"
+                            <div class="form-group col d-flex justify-content-center">
+                                <input type="submit" name="iniciar" class="btn btn-warning rounded-pill text-white"
                                        value="Iniciar sesión"
                                        id="inicioSesion"/>
                             </div>
@@ -79,47 +90,4 @@
             </div>
         </div>
     </div>
-
-    <div id="login">
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="{{ route('login') }}" method="post">
-                            @csrf
-                            <h3 class="text-center">Iniciar sesión</h3>
-                            <div class="form-group">
-                                <x-label for="email"/>
-                                <input type="text" name="email" id="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <x-label for="email"/>
-                                <input type="password" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-warning"><span>Remember me</span> <span><input
-                                                id="remember-me" name="remember-me"
-                                                type="checkbox"></span></label><br>
-                            </div>
-                            <div class="mt-4 row">
-                                @if (Route::has('password.request'))
-                                    <div class="col">
-                                        <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                                           href="{{ route('password.request') }}">
-                                            {{ __('¿Has olvidado tu contraseña?') }}
-                                        </a>
-                                    </div>
-                                @endif
-                                <div class="col d-flex justify-content-end">
-                                    <input type="submit" name="submit" class="btn btn-warning btn-md"
-                                           value="Iniciar sesión">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </x-guest-layout>

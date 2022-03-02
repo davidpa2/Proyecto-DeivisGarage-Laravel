@@ -1,36 +1,58 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <div id="olvidarContraseña">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center align-items-center my-5">
+                <div class="col-3 d-flex justify-content-end">
+                    <img src="{{asset('/storage/images/taller.jpg')}}" alt="tallercito" class="pancarta">
+                </div>
+                <div class="col-3">
+                    <div class="row text-white">
+                        <div class="col-6">
+                            <h1>DeivisGarage</h1>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="{{asset('/storage/images/herramientas.png')}}" alt="logo" class="logo">
+                        </div>
+                        <div class="col mt-1">
+                            <p>
+                                ¿Has olvidado tu constraseña? No te preocupes. Escribe tu email y te mandaremos un
+                                enlace para que puedas elegir una nueva.
+                            </p>
+                        </div>
+                    </div>
+                    <h1 class="text-white">Restablecer contraseña</h1>
+                    <form class="bg-transparent form" action="{{ route('password.email') }}" method="post">
+                        @csrf
+                        <div class="row mb-1">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="text" name="email" class="form-control" placeholder="Email *"
+                                           value="{{old('email')}}"/>
+                                    <p class="text-warning">
+                                        @error('email')
+                                        {{$message}}
+                                        @enderror
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+
+                        <div class="row mt-4">
+                            <div class="col">
+                                <div class="form-group d-flex justify-content-around">
+                                    <input type="submit" name="iniciar" class="btn btn-warning rounded-pill text-white"
+                                           value="Email para restablecer contraseña"
+                                           id="inicioSesion"/>
+                                    <a href="{{ route('login') }}"
+                                       class="btn btn-outline-warning text-white rounded-pill text-sm text-gray-700 dark:text-gray-500 underline me-3">Volver</a>
+                                </div>
+                            </div>
+                        </div>
+                        <x-auth-session-status class="text-warning my-4" :status="session('status')"/>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
+    </div>
 </x-guest-layout>

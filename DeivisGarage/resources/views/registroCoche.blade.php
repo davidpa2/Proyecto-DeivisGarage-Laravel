@@ -16,50 +16,86 @@
             <div class="row mb-1">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="marca" class="form-control" placeholder="Marca *" value=""/>
+                        <input type="text" name="marca" class="form-control" placeholder="Marca *" value="{{old('marca')}}"/>
+                        <p class="text-warning">
+                            @error('marca')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="modelo" class="form-control" placeholder="Modelo *" value=""/>
+                        <input type="text" name="modelo" class="form-control" placeholder="Modelo *" value="{{old('modelo')}}"/>
+                        <p class="text-warning">
+                            @error('modelo')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="km" class="form-control" placeholder="Kilómetros *" value=""/>
+                        <input type="text" name="km" class="form-control" placeholder="Kilómetros *" value="{{old('km')}}"/>
+                        <p class="text-warning">
+                            @error('km')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                     <div class="form-group">
                         <?php
                         $clientes = DB::table('clients')->get();
                         ?>
                         <select class="form-select form-control border-white" name="client_id">
-                            <option class="text-dark" selected>Selecciona un cliente</option>
+                            <option class="text-dark" value="0" selected>Selecciona un cliente</option>
                             @foreach($clientes as $cliente)
                                 <option
-                                    @if(session('cliente') == $cliente->id)
+                                        @if(session('cliente') == $cliente->id)
                                         selected
-                                    @endif
-                                    value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}} -- {{$cliente->dni}}</option>
+                                        @endif
+                                        value="{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}}
+                                    -- {{$cliente->dni}}</option>
                             @endforeach
                         </select>
+                        <p class="text-warning">
+                            @error('client_id')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="averias" class="form-control" placeholder="Nº averías *" value=""/>
+                        <input type="text" name="averias" class="form-control" placeholder="Nº averías *" value="{{old('averias')}}"/>
+                        <p class="text-warning">
+                            @error('averias')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                     <div class="form-group">
                     <textarea name="descAveria" class="form-control" placeholder="Descripción de la avería *"
-                              style="width: 100%; height: 115px;"></textarea>
+                              style="width: 100%; height: 115px;">{{old('descAveria')}}</textarea>
+                        <p class="text-warning">
+                            @error('descAveria')
+                            {{$message}}
+                            @enderror
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-1">
-                <div class="col-md-4">
+                <div class="col-md-4 d-flex justify-content-center">
                     <img class="imgCoche" id="imgCoche"
                          src="https://thumbs.dreamstime.com/b/coche-realista-en-la-oscuridad-front-view-97098400.jpg">
                 </div>
                 <div class="form-group col-md-8 d-flex justify-content-center align-self-center">
-                    <input type="file" name="fotoCoche" class="form-control" value="Añadir coche" id="fotoCocheInput"/>
+                    <input type="file" name="fotoCoche" class="form-control" value="{{old('fotoCoche')}}" id="fotoCocheInput"/>
                 </div>
+                <p class="text-center text-warning">
+                    @error('fotoCoche')
+                    {{$message}}
+                    @enderror
+                </p>
             </div>
 
             <div class="row mt-4">
@@ -84,10 +120,12 @@
             @csrf
             <div class="row mb-1">
                 <div class="form-group col-md-6">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre *" :value="old('nombre')"/>
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombre *"
+                           :value="old('nombre')"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *" :value="old('apellidos')"/>
+                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos *"
+                           :value="old('apellidos')"/>
                 </div>
                 <div class="form-group col-md-6">
                     <input type="text" name="dni" class="form-control" placeholder="DNI *" :value="old('dni')"/>

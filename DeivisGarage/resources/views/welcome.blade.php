@@ -41,23 +41,10 @@
             <!--<div class="col-5 zona bg-transparent" ondrop="drop(event)" ondragover="allowDrop(event)">-->
             <div class="col-5 zona bg-transparent" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <h1 class="text-white text-center">Vehículos reparados</h1>
-            <?php
-            $coches = DB::table('cars')->get()->where('estado', 'completado');
-            ?>
-            @foreach($coches as $coche)
-                <!--<div class="row">
-                        <div class="col-5 d-flex justify-content-center">
-                            <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
-                                 draggable="false" ondragstart="drag(event)" id="{{$coche->id}}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5 d-flex justify-content-center">
-                            <a href="{{url('factura/'.$coche->id)}}"
-                               class="btn btn-warning rounded-pill">Ver
-                                factura</a>
-                        </div>
-                    </div>-->
+                <?php
+                $coches = DB::table('cars')->get()->where('estado', 'completado')->where('costeReparacion',null);
+                ?>
+                @foreach($coches as $coche)
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
                          draggable="false" ondragstart="drag(event)" id="{{$coche->id}}"/>
                     <a href="{{url('factura/'.$coche->id)}}"
