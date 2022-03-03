@@ -77,6 +77,7 @@ class CarApiController extends Controller
 
         } else if ($coche->estado == "reparacion") {
             $coche->estado = "completado";
+            $coche->fechaReparacion = strval(date('d/m/Y'));
         }
 
         $coche->save();

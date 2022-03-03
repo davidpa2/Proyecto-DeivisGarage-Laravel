@@ -38,14 +38,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        $messages = [
+            'nombre.required' => 'El campo nombre es obligatorio',
+            'apellidos.required' => 'El campo apellidos es obligatorio',
+            'dni.required' => 'El campo DNI es obligatorio',
+            'tlf.required' => 'El campo teléfono es obligatorio',
+            'tlf.numeric' => 'Escribe un número válido',
+            'email.required' => 'El campo email es obligatorio',
+            'email.email' => 'Debes de escribir un formado de email válido',
+            'pass.required' => 'Escriba una contraseña',
+        ];
+
         $validate = $request->validate([
             'nombre' => 'required',
             'apellidos' => 'required',
             'dni' => 'required',
-            'tlf' => 'required',
-            'email' => 'required',
+            'tlf' => 'required|numeric',
+            'email' => 'required|email',
             'pass' => 'required',
-        ]);
+        ],$messages);
 
         try {
             $newUser = new User();
@@ -100,13 +112,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'nombre.required' => 'El campo nombre es obligatorio',
+            'apellidos.required' => 'El campo apellidos es obligatorio',
+            'dni.required' => 'El campo DNI es obligatorio',
+            'tlf.required' => 'El campo teléfono es obligatorio',
+            'tlf.numeric' => 'Escribe un número válido',
+            'email.required' => 'El campo email es obligatorio',
+            'email.email' => 'Debes de escribir un formado de email válido',
+        ];
+
         $validate = $request->validate([
             'nombre' => 'required',
             'apellidos' => 'required',
             'dni' => 'required',
             'tlf' => 'required',
-            'email' => 'required',
-        ]);
+            'email' => 'required|email',
+        ],$messages);
 
         try {
             $user = User::findOrFail($id);
@@ -119,10 +141,10 @@ class UserController extends Controller
 
             $user->save();
 
-            return view('mecanicos')->with('mecanicoNombre',$user->nombre)->with('mecanicoApellidos',$user->apellidos);
+            return view('mecanicos')->with('mecanicoNombre', $user->nombre)->with('mecanicoApellidos', $user->apellidos);
         } catch (QueryException $exception) {
-            //return $exception->errorInfo;
-            return redirect()->route('modificarMecanico')->with('error', 1);
+            return $exception->errorInfo;
+            //return redirect()->route('modificarMecanico')->with('error', 1);
         }
     }
 
@@ -138,6 +160,6 @@ class UserController extends Controller
 
         $usuario->delete();
 
-        return redirect()->route('mecanicos');
+        return view('mecanicos')->with('deletedNombre', $usuario->nombre)->with('deletedApellidos', $usuario->apellidos);
     }
 }

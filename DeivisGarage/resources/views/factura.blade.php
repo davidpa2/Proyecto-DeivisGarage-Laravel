@@ -41,7 +41,10 @@
             <div class="col-3 text-white">
                 <p>Apellidos: {{$cliente->apellidos}}</p>
                 <p>Teléfono: {{$cliente->tlf}}</p>
-                <p>Mecánico: {{Auth::user()->nombre}} {{Auth::user()->apellidos}}</p>
+                <?php
+                $mecanico = DB::table('users')->where('id', $coche->user_id)->first();
+                ?>
+                <p>Mecánico: {{$mecanico->nombre}} {{$mecanico->apellidos}}</p>
             </div>
         </div>
 

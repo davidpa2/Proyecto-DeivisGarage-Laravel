@@ -37,13 +37,24 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $messages = [
+            'nombre.required' => 'El campo nombre es obligatorio',
+            'apellidos.required' => 'El campo apellidos es obligatorio',
+            'email.required' => 'El campo email es obligatorio',
+            'email.email' => 'Debes de escribir un formado de email válido',
+            'dni.required' => 'El campo DNI es obligatorio',
+            'tlf.required' => 'El campo teléfono es obligatorio',
+            'tlf.numeric' => 'Escribe un número válido'
+        ];
+
         $validate = $request->validate([
             'nombre' => 'required',
             'apellidos' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'dni' => 'required',
-            'tlf' => 'required',
-        ]);
+            'tlf' => 'required|numeric',
+        ],$messages);
 
         try {
             $newClient = new Client();

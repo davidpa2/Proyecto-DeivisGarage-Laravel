@@ -43,15 +43,27 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'marca.required' => 'El campo marca es obligatorio',
+            'modelo.required' => 'El campo modelo es obligatorio',
+            'km.required' => 'El campo kilómeros es obligatorio',
+            'km.numeric' => 'Debes de escribir un número',
+            'averias.required' => 'El campo número de averías es obligatorio',
+            'averias.numeric' => 'Debes de escribir un número',
+            'descAveria.required' => 'El campo descripción de avería es obligatorio',
+            'fotoCoche.required' => 'El campo foto del coche es obligatorio',
+            'client_id.required' => 'Debes seleccionar un cliente'
+        ];
+
         $validate = $request->validate([
             'marca' => 'required',
             'modelo' => 'required',
-            'km' => 'required',
-            'averias' => 'required',
+            'km' => 'required|numeric',
+            'averias' => 'required|numeric',
             'descAveria' => 'required',
             'fotoCoche' => 'required|image',
             'client_id' => 'required',
-        ]);
+        ],$messages);
 
         try {
             $newCar = new Car();

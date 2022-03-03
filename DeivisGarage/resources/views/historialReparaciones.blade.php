@@ -10,11 +10,11 @@
 
         @if(Auth::user()->rol_id == 1)
             <?php
-            $coches = DB::table('cars')->get()->where('estado', 'completado')->where('costeReparacion', !null);
+            $coches = DB::table('cars')->orderBy("fechaReparacion","desc")->get()->where('estado', 'completado')->where('costeReparacion', !null);
             ?>
         @else
             <?php
-            $coches = DB::table('cars')->get()->where('estado', 'completado')->where('costeReparacion', !null)->where('user_id', Auth::id());
+            $coches = DB::table('cars')->orderBy("fechaReparacion","desc")->get()->where('estado', 'completado')->where('costeReparacion', !null)->where('user_id', Auth::id());
             ?>
         @endif
 
@@ -27,6 +27,7 @@
             <div class="row d-flex justify-content-center">
                 <x-tarjetaReparacion marca="{{$coche->marca}}" modelo="{{$coche->modelo}}"
                                      averias="{{$coche->descripcionAveria}}" coste="{{$coche->costeReparacion}}"
+                                     fechaReparacion="{{$coche->fechaReparacion}}"
                                      nombreCliente="{{$cocheCliente->nombre}}"
                                      apellidosCliente="{{$cocheCliente->apellidos}}" tlf="{{$cocheCliente->tlf}}"
                                      idCoche="{{$coche->id}}"

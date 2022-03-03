@@ -13,8 +13,9 @@
                     <span class='d-inline-block' tabindex='0' data-bs-toggle='tooltip'
                           data-bs-placement='top'
                           title='-{{$coche->marca}} {{$coche->modelo}}       -Mecánico asignado: {{$mecanico->nombre}} {{$mecanico->apellidos}}
-                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)
-                                  -No puedes actualizar un coche que no has registrado tú
+                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)-No puedes actualizar un coche que no has registrado tú
+                                  @else
+                                  -Arrastra a la siguiente zona para terminar reparación
                                   @endif
                                   '>
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
@@ -53,12 +54,18 @@
                     <span class='d-inline-block' tabindex='0' data-bs-toggle='tooltip'
                           data-bs-placement='top'
                           title='-{{$coche->marca}} {{$coche->modelo}}       -Mecánico asignado: {{$mecanico->nombre}} {{$mecanico->apellidos}}
-                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)
-                                  -No puedes actualizar un coche que no has registrado tú
+                          @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)-No puedes actualizar un coche que no has registrado tú
+                                  @else
+                                  -Arrastra a la siguiente zona para terminar reparación
                                   @endif
                                   '>
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"
-                         draggable="true" ondragstart="drag(event)" id="{{$coche->id}}"/>
+                         @if($mecanico->id == Auth::id() || Auth::user()->rol_id == 1)
+                         draggable="true"
+                         @else
+                         draggable="false"
+                         @endif
+                         ondragstart="drag(event)" id="{{$coche->id}}"/>
                     </span>
                 @endforeach
             </div>
