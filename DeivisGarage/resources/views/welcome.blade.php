@@ -15,7 +15,7 @@
                           title='-{{$coche->marca}} {{$coche->modelo}}       -Mecánico asignado: {{$mecanico->nombre}} {{$mecanico->apellidos}}
                           @if($mecanico->id != Auth::id() && Auth::user()->rol_id != 1)-No puedes actualizar un coche que no has registrado tú
                                   @else
-                                  -Arrastra a la siguiente zona para terminar reparación
+                                  -Arrastra a la siguiente zona para comenzar reparación
                                   @endif
                                   '>
                     <img class="coche" src="{{asset('storage/img_cars/'.$coche->foto)}}"

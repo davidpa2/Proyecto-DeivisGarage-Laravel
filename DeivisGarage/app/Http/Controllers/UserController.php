@@ -75,8 +75,8 @@ class UserController extends Controller
 
             return redirect()->route('mecanicos');
         } catch (QueryException $exception) {
-            return $exception->errorInfo;
-            //return redirect()->route('registrarMecanico')->with('error', 1);
+            //return $exception->errorInfo;
+            return redirect()->route('registrarMecanico')->with('error', 1);
         }
     }
 
