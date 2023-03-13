@@ -31,7 +31,7 @@ hr {
 }
 
 .contact-form .form-control {
-    border-radius: 1rem;
+    border-radius: 1rem !important;
 }
 
 .cabeceraImg {
@@ -61,12 +61,12 @@ hr {
 }
 
 .form-control {
-    background: transparent;
-    color: white;
+    background: transparent !important;
+    color: white !important;
 }
 
 ::placeholder {
-    color: white;
+    color: white !important;
 }
 textarea {
     resize: none;
@@ -83,10 +83,10 @@ textarea {
 }
 
 input {
-    width: 20rem;
-    border-radius: 1rem;
-    padding: 1.5%;
-    color: #fff;
+    width: 20rem !important;
+    border-radius: 1rem !important;
+    padding: 1.5% !important;
+    color: #fff !important;
 }
 
 .bgTarjeta {
