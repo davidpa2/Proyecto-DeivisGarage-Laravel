@@ -14,7 +14,7 @@ class AddCosteReparacionToCars extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('costeReparacion')->after('estado');
+            $table->string('costeReparacion')->after('estado')->nullable();
         });
     }
 

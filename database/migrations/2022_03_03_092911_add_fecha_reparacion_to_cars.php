@@ -14,7 +14,7 @@ class AddFechaReparacionToCars extends Migration
     public function up()
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('fechaReparacion')->after('costeReparacion');
+            $table->string('fechaReparacion')->after('costeReparacion')->nullable();
         });
     }
 
