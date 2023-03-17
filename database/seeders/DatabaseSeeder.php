@@ -14,5 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Client::factory(5)->create();
+        if (config("app.env") === 'local') {
+            $this->call([
+                RolSeeder::class,
+                UserSeeder::class,
+            ]);
+        }
     }
 }
